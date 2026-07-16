@@ -1,65 +1,96 @@
-# Vordali Website — Authoritative Next.js Build
+# Vordali Website
 
-This repository is a Next.js App Router application.
+A production-ready static marketing website for Vordali.
 
-## Package manager
+## Deploy on Vercel
 
-This project uses **npm only**.
+1. Upload the contents of this folder to the root of the `vordali-website` GitHub repository.
+2. In Vercel, import or redeploy that repository.
+3. Set **Framework Preset** to `Other`.
+4. Leave **Build Command** blank.
+5. Leave **Output Directory** blank.
+6. Click **Deploy**.
 
-- `package.json`
-- `package-lock.json`
-- Node.js `22.x`
+Vercel will serve `index.html` automatically.
 
-Do not add pnpm, Yarn, Bun, custom Vercel install commands, or a `vercel.json`
-file unless the deployment architecture intentionally changes later.
+## Connect vordali.com
 
-## Vercel settings
+After the temporary `.vercel.app` site looks correct:
 
-- Framework Preset: Next.js
-- Root Directory: `./`
-- Node.js Version: `22.x`
-- Install Command: leave blank
-- Build Command: leave blank
-- Output Directory: leave blank
+1. Open the project in Vercel.
+2. Go to **Settings → Domains**.
+3. Add `vordali.com` and `www.vordali.com`.
+4. Enter Vercel's requested DNS records in Network Solutions.
 
-Vercel should detect `package-lock.json` and install the project automatically.
+## Before public launch
 
-## Required environment variables
+The form currently opens an email addressed to `hello@vordali.com`. Create that mailbox or replace the address in `index.html`.
 
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
+## Files
 
-The service-role key is used only inside server-side route handlers.
+- `index.html` — page structure and copy
+- `styles.css` — complete design system and responsive layout
+- `script.js` — mobile menu, header behavior, and entrance animations
+- `assets/` — Vordali brand imagery
 
-## Included routes
 
-- `/`
-- `/products`
-- `/pricing`
-- `/labs`
-- `/why-vordali`
-- `/trust`
-- `/privacy`
-- `/terms`
-- `/sms-terms`
-- `/cookies`
-- `/acceptable-use`
-- `/security`
+## Commit connection patch
 
-Old `.html` addresses redirect through `next.config.ts`.
+This version adds:
 
-## Supabase
+- `Commit`, `Sign In`, and `Launch Commit` links in the main navigation
+- A dedicated Vordali Commit product section
+- Hero and footer links to the live Commit application
+- Mobile-responsive Commit navigation and product preview
 
-The existing migration remains at:
+Current app destination:
+
+```text
+https://vordali-commit.vercel.app/login
+```
+
+When a custom application subdomain is connected later, replace that URL with
+`https://app.vordali.com/login` or `https://commit.vordali.com/login`.
+
+
+## Included assets
+
+This package now includes a complete `assets/` folder:
+
+- `assets/vordali-mark.webp`
+- `assets/vordali-hero.webp`
+- `assets/favicon.png`
+
+You can upload the entire package to the website repository without separately
+adding the image files.
+
+
+## Platform Foundation Release
+
+This release adds:
+
+- Products page for Commit, Approve, Follow, and Verify
+- Vordali Labs waitlists and problem submissions
+- Why Vordali manifesto
+- Starter ($39.99), Pro ($69.99), and Enterprise pricing
+- Interactive ROI calculator
+- Server-side Vercel functions for research submissions
+- Supabase schema foundation for plans, subscriptions, feature flags, waitlists, and problem research
+- Branded Commit links using `https://commit.vordali.com`
+
+### Required Supabase migration
+
+Run:
 
 `supabase/migrations/006_platform_pricing_labs_foundation.sql`
 
-## Recommended GitHub replacement procedure
+### Required Vercel environment variables for Labs forms
 
-Delete the current repository contents first, while keeping the repository itself.
-Then upload the complete contents of this package to the repository root in one commit.
+- `SUPABASE_URL` (the existing Supabase project URL)
+- `SUPABASE_SERVICE_ROLE_KEY`
 
-Suggested commit message:
+The service-role key must remain server-side and must never use a `NEXT_PUBLIC_` prefix.
 
-`Replace repository with authoritative Next.js build`
+### Suggested commit message
 
+`Vordali Platform - Products Labs Pricing and ROI`
